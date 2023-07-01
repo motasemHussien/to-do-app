@@ -1,18 +1,37 @@
 "use client";
-import { useState } from "react";
-import { sginIn } from "next-auth/react";
+
+import { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/dashboard");
+    }
+  });
+
   const loginUser = async (e) => {
-    e.preventDefult();
-    sginIn("credentials", { ...data, redirect: false }).then(() =>
-      alert("user has been logged in")
-    );
+    e.preventDefault();
+    signIn("credentials", { ...data, redirect: false }).then((callback) => {
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+
+      if (callback?.ok && !callback?.error) {
+        toast.success("Logged in successfully!");
+      }
+    });
   };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -23,7 +42,7 @@ export default function Login() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Login to your account
+            Sign in to your account
           </h2>
         </div>
 
@@ -43,6 +62,7 @@ export default function Login() {
                   type="email"
                   autoComplete="email"
                   value={data.email}
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -71,9 +91,12 @@ export default function Login() {
                   id="password"
                   name="password"
                   type="password"
-                  value={data.password}
                   autoComplete="current-password"
                   required
+                  value={data.password}
+                  onChange={(e) =>
+                    setData({ ...data, password: e.target.value })
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -88,6 +111,20 @@ export default function Login() {
               </button>
             </div>
           </form>
+          <h1>Sign into Github below</h1>
+          <button
+            onClick={() => signIn("github")}
+            className="bg-black text-white w-full"
+          >
+            Sign In
+          </button>
+          <h1>Sign into Google below</h1>
+          <button
+            onClick={() => signIn("google")}
+            className="bg-red-500 text-white w-full"
+          >
+            Sign In
+          </button>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
