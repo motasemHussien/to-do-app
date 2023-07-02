@@ -15,8 +15,16 @@ export default function Register() {
     e.preventDefault();
     axios
       .post("/api/register", data)
-      .then(() => toast.success("User has been registered!"))
-      .catch(() => toast.error("Something went wrong!"));
+      .then(() => {
+        toast.success("User has been registered!");
+      })
+      .catch((error) => {
+        console.log({ error: error.response.data });
+
+        toast.error(
+          error.response.data ? error.response.data : "Something went wrong"
+        );
+      });
   };
 
   return (
