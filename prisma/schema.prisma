@@ -21,6 +21,7 @@ model User {
   updatedAt      DateTime  @updatedAt
 
   accounts Account[]
+  tasks Task[]
 }
 
 model Account {
@@ -40,4 +41,11 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+model Task{
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  title             String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
