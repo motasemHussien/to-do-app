@@ -30,3 +30,24 @@ export async function GET() {
 
   return NextResponse.json({ task });
 }
+export async function PATCH() {
+  const task = await prisma.task.update({
+    where: {
+      id: "64a3392cad1a8077eb73ce54",
+    },
+    data: {
+      title: "pass the title here",
+    },
+  });
+
+  return NextResponse.json({ task });
+}
+
+export async function DELETE() {
+  const task = await prisma.task.delete({
+    where: {
+      id: "64a3392cad1a8077eb73ce54",
+    },
+  });
+  return new NextResponse("Task has been deleted", { status: 200 });
+}
