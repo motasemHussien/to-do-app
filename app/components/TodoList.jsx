@@ -1,24 +1,44 @@
-import React from "react";
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Task from "./Task";
 
 const TodoList = () => {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    getAllTasks();
+  }, []);
+  const getAllTasks = async () => {
+    await axios
+      .get("/api/tasks")
+      .then(({ data }) => {
+        console.log("mya mya", data.task);
+        setTasks(data.task);
+      })
+      .catch(() => {
+        //console.log("mish mya mya");
+      });
+  };
+
+  // task.map(
+  //   setTask(() => {
+  //     <tr key={task.id}>
+  //       <td>{task.title}
   return (
     <div className="overflow-x-auto">
       <table className="table">
-        {/* head */}
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Tasks</th>
 
-            <th>Favorite Color</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <tr>
-            <td>Cy Ganderton</td>
-
-            <td>Blue</td>
-          </tr>
+          {tasks.map((task) => {
+            return <Task tasks={task} />;
+          })}
         </tbody>
       </table>
     </div>
