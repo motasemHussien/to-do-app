@@ -3,6 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [data, setData] = useState({
@@ -10,9 +11,11 @@ export default function Register() {
     email: "",
     password: "",
   });
+  const router = useRouter();
 
   const registerUser = async (e) => {
     e.preventDefault();
+    router.push("/login");
     axios
       .post("/api/register", data)
       .then(() => {
@@ -91,14 +94,6 @@ export default function Register() {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
               </div>
               <div className="mt-2">
                 <input
@@ -125,16 +120,6 @@ export default function Register() {
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
         </div>
       </div>
     </>

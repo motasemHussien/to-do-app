@@ -13,9 +13,14 @@ export default function Login() {
     password: "",
   });
 
+  // useEffect(() => {
+  //   if (session?.status === "authenticated") {
+  //     router.push("/dashboard");
+  //   }
+  // });
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/dashboard");
+      router.push("/");
     }
   });
   const handleSignUp = (e) => {
@@ -102,42 +107,37 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm mt-6 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Log in
               </button>
             </div>
           </form>
 
-          <label className="block text-sm font-medium leading-6 text-gray-900">
-            Sign into Github below
-          </label>
           <button
             onClick={() => signIn("github")}
-            className="bg-black flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="bg-black flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold mt-6 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Sign In
+            Sign In With Github
           </button>
-          <label className="block text-sm font-medium leading-6 text-gray-900">
-            Sign into Google below
-          </label>
 
           <button
             onClick={() => signIn("google")}
-            className="bg-red-500 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="bg-red-500 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold mt-6 leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Sign In
+            Log In With Google
           </button>
-          <label className="block text-sm font-medium leading-6 text-gray-900">
-            Sign with your email
-          </label>
 
-          <button
-            onClick={handleSignUp}
-            className="bg-red-500 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Sign In
-          </button>
+          <p className="mt-5 text-center text-sm text-gray-500">
+            Don't have an account?{" "}
+            <a
+              onClick={handleSignUp}
+              href="#"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Sign Up
+            </a>
+          </p>
         </div>
       </div>
     </>
