@@ -18,6 +18,10 @@ export default function Login() {
       router.push("/dashboard");
     }
   });
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    router.push("/register");
+  };
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -42,7 +46,7 @@ export default function Login() {
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            Log in to your account
           </h2>
         </div>
 
@@ -77,14 +81,7 @@ export default function Login() {
                 >
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
+                <div className="text-sm"></div>
               </div>
               <div className="mt-2">
                 <input
@@ -111,30 +108,36 @@ export default function Login() {
               </button>
             </div>
           </form>
-          <h1>Sign into Github below</h1>
+
+          <label className="block text-sm font-medium leading-6 text-gray-900">
+            Sign into Github below
+          </label>
           <button
             onClick={() => signIn("github")}
-            className="bg-black text-white w-full"
+            className="bg-black flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Sign In
           </button>
-          <h1>Sign into Google below</h1>
+          <label className="block text-sm font-medium leading-6 text-gray-900">
+            Sign into Google below
+          </label>
+
           <button
             onClick={() => signIn("google")}
-            className="bg-red-500 text-white w-full"
+            className="bg-red-500 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Sign In
           </button>
+          <label className="block text-sm font-medium leading-6 text-gray-900">
+            Sign with your email
+          </label>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
+          <button
+            onClick={handleSignUp}
+            className="bg-red-500 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Sign In
+          </button>
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ const TodoList = () => {
 
   useEffect(() => {
     getAllTasks();
-  }, []);
+  }, [JSON.stringify(tasks)]);
   const getAllTasks = async () => {
     await axios
       .get("/api/tasks")
