@@ -15,7 +15,6 @@ export async function POST(request) {
       email,
     },
   });
-  console.log(exist);
   if (exist) {
     return new NextResponse("Email already exists", { status: 409 });
   }

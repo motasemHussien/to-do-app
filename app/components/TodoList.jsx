@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Task from "./Task";
 
-const TodoList = () => {
+const TodoList = ({ session }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     getAllTasks();
-  }, [JSON.stringify(tasks)]);
+  }, [tasks]);
+
   const getAllTasks = async () => {
     await axios
-      .get("/api/tasks")
+      .get(`/api/tasks?id=${session?.user?.id}`)
       .then(({ data }) => {
-        console.log("mya mya", data.task);
         setTasks(data.task);
       })
       .catch(() => {
@@ -21,10 +21,6 @@ const TodoList = () => {
       });
   };
 
-  // task.map(
-  //   setTask(() => {
-  //     <tr key={task.id}>
-  //       <td>{task.title}
   return (
     <div className="overflow-x-auto">
       <table className="table">

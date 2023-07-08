@@ -61,6 +61,12 @@ export const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      session.user.id = token.sub;
+      return session;
+    },
+  },
   secret: process.env.SECRET,
   session: {
     strategy: "jwt",

@@ -3,24 +3,22 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { useRouter } from "next/navigation";
-const AddTask = () => {
-  // const router = useRouter();
+
+const AddTask = ({ session }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [newTextValue, setNewTextValue] = useState("");
 
   const handleSubmitNewTodo = async (e) => {
     e.preventDefault();
     await axios
-      .post("/api/tasks", { title: newTextValue })
+      .post("/api/tasks", { title: newTextValue, userId: session?.user?.id })
       .then(() => {
         setNewTextValue("");
         setModalOpen(false);
       })
       .catch((error) => console.log(error));
   };
-  // router.refresh;
-  // useEffect(() => {}, []);
+
   return (
     <div>
       <button
